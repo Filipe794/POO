@@ -1,0 +1,6 @@
+1- Crie um dicionário que é uma agenda e coloque nele os seguintes dados: chave (cpf), nome, idade, telefone. O programa deve ler um número indeterminado de dados, criar a agenda e imprimir todos os itens do dicionário no formato chave: nome-idade-fone
+
+2-Crie um programa que cadastre informações de várias pessoas (nome, idade e cpf) e depois coloque em um dicionário. Depois remova todas as pessoas menores de 18 anos do dicionário e coloque em outro dicionário
+
+3-Considere um sistema onde os dados são armazenados em dicionários. Nesse sistema existe um dicionario principal e o dicionário de backup. Cada vez que o dicionário principal atinge tamanho 5, ele imprime os dados na tela e apaga o seu conteúdo. Crie um programa que insira dados em um dicionário, realizando o backup a cada dado e excluindo os dados do dicionário principal
+quando ele atingir tamanho 5

@@ -1,0 +1,6 @@
+1-Faça um Programa que receba uma lista de 5 números inteiros e mostre-os.
+2-Faça um Programa que receba uma lista de 10 números reais e mostre-os na ordem inversa.
+3-Faça um Programa que leia 4 notas, adicione em uma lista e mostre as notas e a média na tela.
+4-Faça um Programa que leia lista  de 10 caracteres, e diga quantas consoantes foram lidas. Imprima as consoantes.
+5-Faça um Programa que leia 20 números inteiros e armazene-os uma lista. Armazene os números pares na lista PAR e os números IMPARES na lista impar. Imprima as três listas.
+6-Faça um Programa que peça as quatro notas de 10 alunos, calcule e armazene em uma lista a média de cada aluno, imprima o número de alunos com média maior ou igual a 7.0.
