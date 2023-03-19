@@ -1,15 +1,23 @@
-info = {}
-i = int(input('Insira a quantidade de dados a serem inseridos: '))
-pessoa =[]    
-for j in range(i):
-    info ={
-        "cpf": input('Insira seu cpf: '),
-        "nome": input('Insira seu nome: '),
-        "idade": int(input('Insira sua idade: '))
-    }
-    pessoa.append(info)
+pessoas = {}
 
-print(pessoa)
+num_pessoas = int(input('Insira a quantidade de pessoas a serem cadastradas: '))
 
-# for i in range(len(pessoa)):
+for i in range(num_pessoas):
+    print(f'Cadastro da pessoa {i+1}')
+    nome = input('Nome: ')
+    idade = int(input('Idade: '))
+    cpf = input('CPF: ')
+    pessoa = {"nome": nome, "idade": idade, "cpf": cpf}
+    pessoas[cpf] = pessoa
 
+menores = {}
+
+for cpf,pessoa in pessoa.items():
+    if pessoa["idade"] < 18:
+        menores[cpf] = pessoa
+        del pessoas[cpf]
+
+print(f'Pessoas maiores de 18 anos')
+print(pessoas)
+print(f'Pessoas menores de 18 anos')
+print(menores)

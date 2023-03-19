@@ -1,5 +1,5 @@
 agenda = {}
-i = int(input('Insira a quantidade de dados a serem inseridos: '))
+i = int(input('Insira a quantidade de pessoas a serem cadastradas: '))
 contatos =[]    
 for j in range(i):
     agenda ={
