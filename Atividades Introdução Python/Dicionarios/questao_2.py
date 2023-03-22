@@ -7,15 +7,17 @@ for i in range(num_pessoas):
     nome = input('Nome: ')
     idade = int(input('Idade: '))
     cpf = input('CPF: ')
-    pessoa = {"nome": nome, "idade": idade, "cpf": cpf}
-    pessoas[cpf] = pessoa
+    pessoas[cpf] = {"nome": nome, "idade": idade, "cpf": cpf}
 
 menores = {}
+deletar = []
 
-for cpf,pessoa in pessoa.items():
+for cpf,pessoa in pessoas.items():
     if pessoa["idade"] < 18:
         menores[cpf] = pessoa
-        del pessoas[cpf]
+        deletar.append(cpf)
+for i in deletar:
+    del pessoas[i]
 
 print(f'Pessoas maiores de 18 anos')
 print(pessoas)

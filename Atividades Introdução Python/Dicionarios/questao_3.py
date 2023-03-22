@@ -1,17 +1,15 @@
-pessoas = {}
 principal = {}
 backup = {}
 
-i = 0
+i = 1
 cont = 0
 while i != 0:
-    print(f'Cadastro da pessoa {i+1}')
-    nome = input('Nome: ')
-    pessoa = {"nome": nome}
-    pessoas[nome] = pessoa
-    backup[nome] = pessoa
-    i = int(input('Digite 1 para continuar inserindo ou 0 para parar de inserir: '))
     cont+=1
+    print(f'Cadastro da pessoa {cont}')
+    principal[cont] = {cont: input('Nome: ')}
+    backup[cont] = principal[cont]
     if cont % 5 == 0:
-        print(principal)
+        for indice,pessoa in principal.items():
+            print(principal[indice])
         principal.clear()
+    i = int(input('Digite 1 para continuar inserindo ou 0 para parar de inserir: '))
