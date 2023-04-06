@@ -91,7 +91,6 @@ def menu_editar():
     return op
     
 
-
 def editar_dados():
     cpf = input('Insira o cpf do funcionario: ')
     for funcionario in funcionarios:
