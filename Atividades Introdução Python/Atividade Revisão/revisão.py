@@ -5,7 +5,7 @@ funcionarios = []
 
 
 def cadastro_funcionario():
-    print('Insira os dados do funcionario')
+    print('\nInsira os dados do funcionario\n')
 
     nome = input('Nome: ')
     while nome == '':
@@ -30,11 +30,11 @@ def cadastro_funcionario():
     telefones = []
     while True:
         telefone = input("Digite o telefone a ser cadastrado ou digite 'sair' para parar de inserir\n")
-        if telefones == 'sair':
+        if telefone == 'sair':
             break
         if telefone != '':
             telefones.append(telefone)
-        else: 
+        else:
             print('Telefone nao pode ser vazio')
 
     funcionario = {
@@ -52,13 +52,14 @@ def pesquisar_funcionario():
     cpf = input('Insira o cpf do funcionario: ')
     for funcionario in funcionarios:
         if funcionario["cpf"] == cpf:
-            print('Nome:', funcionario["nome"])
+            print('\nNome:', funcionario["nome"])
             print('CPF:', funcionario["cpf"])
             print('Cargo:', funcionario["cargo"])
             print('Salario:', funcionario["salario"])
             print('Telefones: ')
             for telefone in funcionario["telefones"]:
                 print(' - ', telefone)
+            print('\n')
             return
     print('Funcionário não encontrado\n')
 
@@ -67,13 +68,14 @@ def cadastrar_telefone():
     cpf = input('Insira o cpf do funcionario: ')
     for funcionario in funcionarios:
         if funcionario["cpf"] == cpf:
-            telefone = input('Insira o novo telefone: ')
+            telefone = input('\nInsira o novo telefone: ')
             if telefone != '':
                         funcionario["telefones"].append(telefone)
+                        print('\nTelefone cadastrado com sucesso\n')
             else:
-                        print('Telefone nao pode ser vazio')
+                        print('\nTelefone nao pode ser vazio')
             return
-    print('Funcionário não encontrado\n')
+    print('\nFuncionário não encontrado\n')
 
 
 def menu_editar():
@@ -83,7 +85,11 @@ def menu_editar():
     print('3- Remover um telefone')
     print('4- Atualizar cargo')
     print('5- Atualizar salario')
-    print('6- Sair')
+    print('0- Sair')
+    op = int(input('\nEscolha uma opcao: '))
+    print('\n')
+    return op
+    
 
 
 def editar_dados():
@@ -91,43 +97,98 @@ def editar_dados():
     for funcionario in funcionarios:
         if funcionario["cpf"] == cpf:
             while True:
-                menu_editar()
-                op = int(input())
+                op = menu_editar()
                 if op == 1:
-                    nome = input('Digite o novo nome: ')
+                    nome = input('\nDigite o novo nome: ')
                     if nome != '':
                         funcionario["nome"] = nome
+                        print('Nome atualizado com sucesso\n')
                     else:
-                        print('Nome nao pode ser vazio')
+                        print('\nNome nao pode ser vazio')
                 elif op == 2:
-                    telefone = input('Insira o novo telefone: ')
+                    telefone = input('\nInsira o novo telefone: ')
                     if telefone != '':
                         funcionario["telefones"].append(telefone)
+                        print('Telefone atualizado com sucesso\n')
                     else:
-                        print('Telefone nao pode ser vazio')
+                        print('\nTelefone nao pode ser vazio\n')
                 elif op == 3:
-                    telefone = input('Insira o teleofone a ser removido: ')
+                    telefone = input('Insira o telefone a ser removido: ')
                     if telefone in funcionario["telefones"]:
                         funcionario["telefones"].remove(telefone)
+                        print('Telefone removido com sucesso\n')
                     else:
-                        print('Telefone nao encontrado')
+                        print('\nTelefone nao encontrado\n')
                 elif op == 4:
-                    cargo = input('Insira o novo cargo')
+                    cargo = input('Insira o novo cargo: ')
                     if cargo != '':
                         funcionario["cargo"] = cargo
+                        print('Cargo atualizado com sucesso\n')
                     else:
-                        print('Cargo nao pode ser vazio')
+                        print('Cargo nao pode ser vazio\n')
                 elif op == 5:
-                    salario = float(input('Insira o novo cargo'))
+                    salario = float(input('Insira o novo salario: '))
                     if salario != '':
                         funcionario["salario"] = salario
+                        print('Salario atualizado com sucesso\n')
                     else:
-                        print('salario nao pode ser vazio')
-                elif op == 6:
+                        print('\nSalario nao pode ser vazio\n')
+                elif op == 0:
                     return
                 else:
                     print('Opção inválida!')
 
 
 def deletar_funcionario():
-    
+    cpf = input('Insira o cpf do funcionario: ')
+    for funcionario in funcionarios:
+        if funcionario["cpf"] == cpf:
+            funcionarios.remove(funcionario)
+            print('\nFuncionario removido\n')
+            return
+    print('\nFuncionario nao encontrado\n')
+
+
+def menu():
+    print('\n')
+    print('1- Cadastro de Funcionários')
+    print('2- Pesquisar funcionário')
+    print('3- Cadastrar novo telefone')
+    print('4- Editar dados do Funcionário')
+    print('5- Deletar funcionário')
+    print('0- Sair')
+    op = int(input('Escolha uma opcao: '))
+    return op
+
+
+def main():
+    while True:
+        op = menu()
+        if op == 1:
+            cadastro_funcionario()
+        elif op == 2:
+            if len(funcionarios) == 0:
+                print("Nao ha funcionarios cadastrados\n")
+            else:
+             pesquisar_funcionario()
+        elif op == 3:
+            if len(funcionarios) == 0:
+                print("Nao ha funcionarios cadastrados\n")
+            else:
+             cadastrar_telefone()
+        elif op == 4:
+            if len(funcionarios) == 0:
+                print("Nao ha funcionarios cadastrados\n")
+            else:
+                editar_dados()
+        elif op == 5:
+            if len(funcionarios) == 0:
+                print("Nao ha funcionarios cadastrados\n")
+            else:
+             deletar_funcionario()
+        elif op == 0:
+             return
+        else:
+            print('\nOpção inválida!')
+
+main()
