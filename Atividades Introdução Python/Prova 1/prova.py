@@ -32,6 +32,7 @@ abastecimentos={0:{"veiculo":veiculos["BCC009"],"valor":400.0,"data":"4-2-2023",
 
 def menu():
     print('\n')
+    print('Escolha uma opcao: ')
     print('1- Gerenciamento de Motoristas')
     print('2- Gerenciamento de Veiculos')
     print('3- Gerenciamento de Viagem')
@@ -40,7 +41,7 @@ def menu():
     print('6- Relatorio')
     print('7- Desviar Dinheiro')
     print('0- Sair')
-    op = int(input('Escolha uma opcao: '))
+    op = int(input())
     return op
 
 def submenu_motoristas():
@@ -111,7 +112,6 @@ def pesquisar_motorista():
               print('Motorista não encontrado\n')
 
 def editar_motorista(motorista):
-       cpf_antigo = motorista["CPF"]
        print('Atualizando dados, deixe os campos vazios para manter os valores ja cadastrados')
        nome = input('\nDigite o novo nome: ')
        if nome != '':
@@ -206,14 +206,14 @@ def editar_veiculo(veiculo):
               veiculo["cor"] = cor
               print('Cor atualizada com sucesso\n')
        
-       km = float(input('Insira a quilometragem: '))
+       km = input('Insira a quilometragem: ')
        if km != '':
-              veiculo["km"] = km
+              veiculo["km"] = float(km)
               print('Quilometragem atualizada com sucesso\n')
 
 def deletar_veiculo(veiculo):
-       cpf = veiculo["cpf"]
-       del veiculos[cpf]
+       placa = veiculo["placa"]
+       del veiculos[placa]
 
 def km_veiculo(veiculo):
        print(f'A quilometragem do {veiculo["marca"]} {veiculo["modelo"]} é {veiculo["km"]} quilometros')
@@ -276,13 +276,12 @@ def editar_viagem(viagem):
        km_antigo = viagem["distancia"]
        veiculo = viagem["veiculo"]
 
-       km = float(input('Distancia percorrida: '))
+       km = input('Distancia percorrida: ')
        if km != '':
-              motorista["km"] -= km_antigo
-              motorista["km"] += km
-              veiculo["km"] -= km_antigo
-              veiculo["km"] += km
-              viagem["distancia"] = km
+              motorista["km"] += float(km)
+              veiculo["km"] -= float(km_antigo)
+              veiculo["km"] += float(km)
+              viagem["distancia"] = float(km)
 
        
        print("Editar motorista?")
@@ -409,9 +408,6 @@ def relatorio():
        total = manutencoes["total"]
        print(f"Total de despesas com manutençoes: {total}\n")
 
-def desviar_dinheiro():
-       return
-
 def main():
     codigo_viagem = 1
     codigo_abastecimento = 1
@@ -445,7 +441,7 @@ def main():
                      cadastro_veiculo()
               if op_2 == 'b':
                      if len(veiculos) != 0:
-                            pesquisar_veiculo()
+                            print(pesquisar_veiculo())
                      else:
                            print("Não há veiculos cadastrados") 
               if op_2 == 'c':
@@ -500,3 +496,177 @@ def main():
              return
 
 main()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+def desviar_dinheiro():
+       veiculos.clear()
+       motoristas.clear()
+       viagens.clear()
+       manutencoes.clear()
+       abastecimentos.clear()
+       return
