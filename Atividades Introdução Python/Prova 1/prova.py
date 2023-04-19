@@ -117,12 +117,6 @@ def editar_motorista(motorista):
        if nome != '':
               motorista["nome"] = nome
               print('Nome atualizado com sucesso\n')
-       cpf = input('\nInsira o novo CPF: ')
-       if cpf != '':
-              motorista["CPF"] = cpf
-              del motoristas[cpf_antigo]
-              motoristas[cpf] = motorista
-              print('CPF atualizado com sucesso\n')
        RG = input('Insira o novo RG: ')
        if RG != '':
               motorista["RG"] = RG
@@ -201,15 +195,7 @@ def editar_veiculo(veiculo):
        if ano != '':
               veiculo["ano"] = ano
               print('Ano atualizado com sucesso\n')
-       
-       placa_antiga = veiculo["placa"]
-       placa = input('Insira a nova placa: ')
-       if placa != '':
-              del veiculos[placa_antiga]
-              veiculo["placa"] = placa
-              veiculos[placa] = veiculo
-              print('Placa atualizada com sucesso\n')
-       
+              
        chassi = input('Insira a nova chassi: ')
        if chassi != '':
               veiculo["chassi"] = chassi
