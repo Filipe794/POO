@@ -38,6 +38,7 @@ def menu():
     print('4- Registrar Abastecimento')
     print('5- Registrar Manuntencao')
     print('6- Relatorio')
+    print('7- Desviar Dinheiro')
     print('0- Sair')
     op = int(input('Escolha uma opcao: '))
     return op
@@ -389,7 +390,7 @@ def veiculo_maior_km():
               if maior < veiculo["km"]:
                      maior = veiculo["km"]
                      veiculo_maior = veiculo
-                     
+
        print(f'O veiculo com maior quilometragem é o {veiculo_maior["marca"]} {veiculo_maior["modelo"]} com {veiculo_maior["km"]} quilometros\n')
 
 def motorista_mais_viagens():
@@ -422,6 +423,9 @@ def relatorio():
        total = manutencoes["total"]
        print(f"Total de despesas com manutençoes: {total}\n")
 
+def desviar_dinheiro():
+       return
+
 def main():
     codigo_viagem = 1
     codigo_abastecimento = 1
@@ -434,43 +438,78 @@ def main():
               if op_2 == 'a':
                      cadastro_motorista()
               if op_2 == 'b':
-                     print(pesquisar_motorista())
+                     if len(motoristas) != 0:
+                            print(pesquisar_motorista())
+                     else:
+                            print("Não há motoristas cadastrados")
               if op_2 == 'c':
-                     editar_motorista(pesquisar_motorista())
+                     if len(motoristas) != 0:
+                            editar_motorista(pesquisar_motorista())
+                     else:
+                            print("Não há motoristas cadastrados")
               if op_2 == 'd':
-                     deletar_motorista(pesquisar_motorista())
+                     if len(motoristas) != 0:
+                            deletar_motorista(pesquisar_motorista())
+                     else:
+                            print("Não há motoristas cadastrados")
        # Gerenciamento de Veiculos
        if op == 2:
               op_2 = submenu_veiculos()
               if op_2 == 'a':
                      cadastro_veiculo()
               if op_2 == 'b':
-                     pesquisar_veiculo()
+                     if len(veiculos) != 0:
+                            pesquisar_veiculo()
+                     else:
+                           print("Não há veiculos cadastrados") 
               if op_2 == 'c':
-                     editar_veiculo(pesquisar_veiculo())
+                     if len(veiculos) != 0:
+                            editar_veiculo(pesquisar_veiculo())
+                     else:
+                           print("Não há veiculos cadastrados") 
               if op_2 == 'd':
-                     deletar_veiculo(pesquisar_veiculo())
+                     if len(veiculos) != 0:
+                            deletar_veiculo(pesquisar_veiculo())
+                     else:
+                           print("Não há veiculos cadastrados") 
               if op_2 == 'e':
-                     km_veiculo(pesquisar_veiculo())
+                     if len(veiculos) != 0:
+                            km_veiculo(pesquisar_veiculo())
+                     else:
+                           print("Não há veiculos cadastrados") 
        # Gerenciameto de Viagens
        if op == 3:
-              op = submenu_viagem()
-              if op == 'a':
-                     codigo_viagem += 1
-                     cadastrar_viagem(codigo_viagem)
-              if op == 'b':
-                     editar_viagem()
+              if len(veiculos) != 0 or len(motoristas) != 0:
+                     op = submenu_viagem()
+                     if op == 'a':
+                            codigo_viagem += 1
+                            cadastrar_viagem(codigo_viagem)
+                     if op == 'b':
+                            if len(viagens) != 0:
+                                   editar_viagem()
+                            else:
+                                   print("Não há viagens cadastradas")
+              else:
+                     print("Não há veiculos ou motoristas suficientes")
        # Registrar Abastecimento
        if op == 4:
-              codigo_abastecimento += 1
-              registrar_abastecimento(codigo_abastecimento)
+              if len(veiculos) != 0:
+                     codigo_abastecimento += 1
+                     registrar_abastecimento(codigo_abastecimento)
+              else:
+                     print("Não há veiculos cadastrados")
        # Registrar Manutencao
        if op == 5:
-              codigo_manutencao += 1
-              registrar_manutencao(codigo_manutencao)
+              if len(veiculos) != 0:
+                     codigo_manutencao += 1
+                     registrar_manutencao(codigo_manutencao)
+              else:
+                     print("Não há veiculos cadastrados")
        # Relatorio
        if op == 6:
               relatorio()
+       if op == 7:
+              desviar_dinheiro()
        if op == 0:
              return
 
