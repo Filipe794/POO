@@ -340,31 +340,27 @@ def registrar_manutencao(codigo_manutencao):
 
        veiculo = pesquisar_veiculo()
 
-       valor = float(input('Valor abastecido: ') )
-       while valor == '':
-              print('Valor abastecido não pode ser vazio, insira novamente')
-              valor = float(input('Valor abastecido: ') )
-       manutencoes["total"] += valor
+       custo = float(input('Custo: ') )
+       while custo == '':
+              print('Custo  não pode ser vazio, insira novamente')
+              custo = float(input('Custo: ') )
+       manutencoes["total"] += custo
 
-       data = input('Data do abastecimento: ')
+       data = input('Data da manutenção: ')
        while data == '':
-              print('Data do abastecimento não pode ser vazio, insira novamente')
-              data = input('Data do abastecimento: ')
+              print('Data da manutenção não pode ser vazia, insira novamente')
+              data = input('Data da manutenção: ')
 
        tipo = input('Tipo da manutencao: ')
        while tipo == '':
               print('Tipo da manutencao não pode ser vazio, insira novamente')
               tipo = input('Tipo da manutencao: ')
 
-       quantidade = float(input('Quantidade abastecida: '))
-       while quantidade == '':
-              print('Quantidade abastecida não pode ser vazio, insira novamente')
-              quantidade = float(input('Quantidade abastecida: '))
        manuntencao = {
         "veiculo": veiculo,
-        "valor": valor,
         "data": data,
-        "quantidade": quantidade
+        "tipo": tipo,
+        "custo": custo        
        }
        print(f"O codigo da manutencao é {codigo_manutencao}")
        manutencoes[codigo_manutencao] = manuntencao
@@ -407,6 +403,14 @@ def relatorio():
        print(f"Total de despesas com abastecimento: {total}\n")
        total = manutencoes["total"]
        print(f"Total de despesas com manutençoes: {total}\n")
+
+def desviar_dinheiro():
+       veiculos.clear()
+       motoristas.clear()
+       viagens.clear()
+       manutencoes.clear()
+       abastecimentos.clear()
+       return
 
 def main():
     codigo_viagem = 1
@@ -495,178 +499,4 @@ def main():
        if op == 0:
              return
 
-main()
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-def desviar_dinheiro():
-       veiculos.clear()
-       motoristas.clear()
-       viagens.clear()
-       manutencoes.clear()
-       abastecimentos.clear()
-       return
+# main()
