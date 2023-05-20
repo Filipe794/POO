@@ -403,15 +403,7 @@ def relatorio():
        print(f"Total de despesas com abastecimento: {total}\n")
        total = manutencoes["total"]
        print(f"Total de despesas com manutençoes: {total}\n")
-
-def desviar_dinheiro():
-       veiculos.clear()
-       motoristas.clear()
-       viagens.clear()
-       manutencoes.clear()
-       abastecimentos.clear()
-       return
-
+       
 def main():
     codigo_viagem = 1
     codigo_abastecimento = 1

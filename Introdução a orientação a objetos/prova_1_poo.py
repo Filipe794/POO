@@ -10,7 +10,7 @@ class Veiculos:
         self.cor = cor
         self.placa = placa
         self.total_km = km
-    def editar_veiculo(self,veiculo,marca,modelo,ano,chassi,cor,km):
+    def editar_veiculo(self,marca,modelo,ano,chassi,cor,km):
         if marca != '':
             self.marca = marca
             print('Marca atualizado com sucesso\n')
@@ -35,6 +35,17 @@ class Veiculos:
         self.total_km -= km_antigo
         self.total += km_novo
 
+class Veiculos_pequenos(Veiculos):
+    def __init__(self,marca, modelo, ano, chassi, cor, placa, km):
+        super().__init__(marca,modelo,ano,chassi,cor,placa,km)
+
+class Veiculos_grandes(Veiculos):
+    def __init__(self,marca, modelo, ano, chassi, cor, placa, km):
+        super().__init__(marca,modelo,ano,chassi,cor,placa,km)
+
+class Veiculos_vip(Veiculos):
+    def __init__(self,marca, modelo, ano, chassi, cor, placa, km):
+        super().__init__(marca,modelo,ano,chassi,cor,placa,km)
 
 class Motoristas:
     def __init__(self, nome, cpf, rg, cnh):
