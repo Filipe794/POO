@@ -138,19 +138,21 @@ class Autor:
         print(f"Autor: {self.nome} Pais: {self.pais}")
 
 class Exemplar:
-    def __init__(self,numero,status):
+    def __init__(self,numero):
         self.numero = numero
-        self.status = status
+        self.status = True
 
     def disponivel(self):
-        print(f"Status:{self.status}")
+        return self.status
 
-    def mudar_status(self,status):
-        self.status = status
+    def mudar_status(self):
+        if self.status:
+            self.status = False
+        else:
+            self.status = True
 
     def print_info(self):
         print(f"Numero Exemplar: {self.numero} Status: {self.status}")
-
 
 class Livro:
     def __init__(self,titulo,ano,autor):
@@ -159,26 +161,30 @@ class Livro:
         self.autor = autor
         self.exemplares = []
 
-    def adicionar_exemplar(self,exemplar):
-        self.exemplares.append(exemplar)
+    def adicionar_exemplar(self,codigo_exemplar):
+        self.exemplares.append(Exemplar(codigo_exemplar))
     
     def print_info(self):
         print(f"Titulo: {self.titulo} Ano: {self.Ano} Autor: {self.Autor} Quantidade de Exemplares: {len(self.exemplares)}")
 
 class Emprestimo:
-    def __init__(self,usuario, data_emprestimo, exemplar: Exemplar):
+    def __init__(self,usuario, data_emprestimo):
         self.usuario = usuario
         self.data_emprestimo = data_emprestimo
-        self.exemplar = exemplar
-        exemplar.mudar_status(False)
 
-    def adicionar_exemplar(self,exemplar):
-        self.exemplar.append(exemplar)
+    def adicionar_exemplar(self,livro: Livro):
+        if len(livro.exemplares) > 0:
+            for exemplar in livro.exemplares:
+                if exemplar.disponivel:
+                    exemplar.mudar_status()
+                    self.exemplar.append(exemplar)
+                    break               
+        else:
+            print("Nao tem exemplares cadastrados")
 
     def finalizar(self):
-        self.exemplar.mudar_status(True)
+        for exemplar in self.exemplares:
+            exemplar.mudar_status()
     
     def print_info(self):
         print(f"Usuario: {self.usuario} Data Emprestimo: {self.data_emprestimo} Exemplar: {self.exemplar.print_info}")
-
-
