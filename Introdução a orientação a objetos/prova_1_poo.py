@@ -44,8 +44,9 @@ class Veiculos_grandes(Veiculos):
         super().__init__(marca,modelo,ano,chassi,cor,placa,km)
 
 class Veiculos_vip(Veiculos):
-    def __init__(self,marca, modelo, ano, chassi, cor, placa, km):
+    def __init__(self,marca, modelo, ano, chassi, cor, placa, km, blindagem: bool):
         super().__init__(marca,modelo,ano,chassi,cor,placa,km)
+        self.blindagem = blindagem
 
 class Motoristas:
     def __init__(self, nome, cpf, rg, cnh):
