@@ -486,8 +486,6 @@ def main():
        # Relatorio
        if op == 6:
               relatorio()
-       if op == 7:
-              desviar_dinheiro()
        if op == 0:
              return
 

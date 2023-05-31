@@ -116,15 +116,15 @@ class Viagens:
        print("Não")
        op = input()
        if op == 'Sim' or op == "sim":
-              self.veiculo.atualizar_km(0,self.distancia)
-              veiculo_novo.atualizar_km(self.distancia)
-              veiculo_novo.atualizar_km(self.distancia)
-              self.veiculo = veiculo_novo
+        self.veiculo.atualizar_km(0,self.distancia)
+        veiculo_novo.atualizar_km(self.distancia)
+        veiculo_novo.atualizar_km(self.distancia)
+        self.veiculo = veiculo_novo
 
 codigo_abastecimento = 0
 
 class Abastecimento:
-    def __init__(self, veiculo, valor, data, quantidade):
+    def __init__(self, veiculo: Veiculos, valor, data, quantidade):
         self.veiculo = veiculo
         self.valor = valor
         self.data = data
@@ -136,7 +136,7 @@ class Abastecimento:
 codigo_manutencao = 0
 
 class Manutencao:
-    def __init__(self, veiculo, data, tipo, custo):
+    def __init__(self, veiculo: Veiculos, data, tipo, custo):
         self.veiculo = veiculo
         self.data = data
         self.tipo = tipo,
