@@ -1,16 +1,19 @@
 from abc import ABC, abstractmethod
-from classes import Motoristas, Veiculos, Manutencao, Abastecimento,Viagens
+from classes import Motoristas, Veiculos, Manutencao, Abastecimento, Viagens
 
 # cada objeto vira um dicionario e cada dicionario é armazenado dentro de outro dicionario
+
+
 class BaseDAO(ABC):
     @abstractmethod
-    def add(self):...
+    def add(self): ...
     @abstractmethod
-    def pesquisar(self):...
+    def pesquisar(self): ...
     @abstractmethod
-    def edit(self):...
+    def edit(self): ...
     @abstractmethod
-    def delete(self):...
+    def delete(self): ...
+
 
 motoristas = {}
 veiculos = {}
@@ -19,7 +22,7 @@ abastecimentos = {}
 viagens = {}
 
 class MotoristasDAO(BaseDAO):
-    def add(self,motorista: Motoristas):         
+    def add(self, motorista: Motoristas):
        nome = motorista.nome
        cpf = motorista.cpf
        rg = motorista.rg
@@ -31,15 +34,32 @@ class MotoristasDAO(BaseDAO):
         "CNH": cnh
        }
        motoristas[cpf] = motorista
-    def pesquisar(self,cpf: str):
+    def pesquisar(self, cpf: str):
         # pesquisar no dicionario pelo cpf e retornar o motorista
-        pass
+        motorista = motoristas.get(cpf)
+        if motorista:
+            return motorista
+        else:
+            print('Motorista não encontrado\n')
     def edit(self, motorista: Motoristas):
         # receber o motorista que foi pesquisado e editar
-        pass
-    def delete(self, cpf: str):
+        print('Atualizando dados, deixe os campos vazios para manter os valores ja cadastrados')
+        nome = input('\nDigite o novo nome: ')
+        if nome != '':
+            motorista["nome"] = nome
+            print('Nome atualizado com sucesso\n')
+        RG = input('Insira o novo RG: ')
+        if RG != '':
+            motorista["RG"] = RG
+            print('RG atualizado com sucesso\n')
+        CNH = input('Insira a nova CNH: ')
+        if CNH != '':
+            motorista["CNH"] = CNH
+            print('CNH atualizada com sucesso\n')
+    def delete(self,motorista: Motoristas):
         # receber um motorista e excluir do dicionario
-        pass
+        cpf = motorista["CPF"]
+        del motoristas[cpf]
 
 class VeiculosDAO(BaseDAO):
     def add(self,veiculo: Veiculos):
@@ -58,17 +78,42 @@ class VeiculosDAO(BaseDAO):
             "placa": placa
         }
         veiculos[placa] = veiculo
-    def pesquisar(self,veiculo: Veiculos):
+    def pesquisar(self,placa: str):
         # pesquisar no dicionario por placa e retornar
-        pass
-    
+        veiculo = veiculos.get(placa)
+        if veiculo:
+            return veiculo
+        else:
+            print('Veiculo não encontrado\n')
     def edit(self,veiculo: Veiculos):
         # receber um veiculo e editar
-        pass
-    
+        print('Atualizando dados, deixe os campos vazios para manter os valores ja cadastrados')
+        marca = input('\nDigite a marca: ')
+        if marca != '':
+            veiculo["marca"] = marca
+            print('Marca atualizado com sucesso\n')
+        modelo = input('\nInsira o novo modelo: ')
+        if modelo != '':
+            veiculo["modelo"] = modelo
+            print('Modelo atualizado com sucesso\n')
+        ano = input('Insira o ano: ')
+        if ano != '':
+            veiculo["ano"] = ano
+            print('Ano atualizado com sucesso\n')
+              
+        chassi = input('Insira a nova chassi: ')
+        if chassi != '':
+            veiculo["chassi"] = chassi
+            print('Chassi atualizado com sucesso\n')
+       
+        cor = input('Insira a nova cor: ')
+        if cor != '':
+            veiculo["cor"] = cor
+            print('Cor atualizada com sucesso\n') 
     def delete(self,veiculo: Veiculos):
         # receber um veiculo e excluir do dicionario
-        pass
+        placa = veiculo["placa"]
+        del veiculos[placa]
 
 class ManuntencaoDAO(BaseDAO):
     def add(self,manutencao: Manutencao):

@@ -9,31 +9,6 @@ class Veiculos:
         self.chassi = chassi
         self.cor = cor
         self.placa = placa
-        self.total_km = km
-    def editar_veiculo(self,marca,modelo,ano,chassi,cor,km):
-        if marca != '':
-            self.marca = marca
-            print('Marca atualizado com sucesso\n')
-        if modelo != '':
-            self.modelo = modelo
-            print('Modelo atualizado com sucesso\n')
-        if ano != '':
-            self.ano = ano
-            print('Ano atualizado com sucesso\n')
-        if chassi != '':
-            self.chassi = chassi
-            print('Chassi atualizado com sucesso\n')
-        if cor != '':
-            self.cor = cor
-            print('Cor atualizada com sucesso\n')
-        if km != '':
-            self.km = float(km)
-            print('Quilometragem atualizada com sucesso\n')
-    def km_veiculo(self):
-        print(f'A quilometragem do {self.marca} {self.modelo} é {self.km} quilometros')
-    def atualizar_km(self,km_novo,km_antigo = 0):
-        self.total_km -= km_antigo
-        self.total += km_novo
 
 class Veiculos_pequenos(Veiculos):
     def __init__(self,marca, modelo, ano, chassi, cor, placa, km):
@@ -54,23 +29,6 @@ class Motoristas:
         self.cpf = cpf
         self.rg = rg
         self.cnh = cnh
-        self.total_km = 0
-        self.qnt_viagens = 0
-
-    def editar_motorista(self,nome,rg,cnh):
-        if nome != '':
-            self.nome = nome
-            print('Nome atualizado com sucesso\n')
-        if rg != '':
-            self.rg = rg
-            print('RG atualizado com sucesso\n')
-        if cnh != '':
-            self.cnh = cnh
-            print('CNH atualizada com sucesso\n')
-
-    def atualizar_km(self,km_novo,km_antigo = 0):
-        self.total_km -= km_antigo
-        self.total += km_novo
 
 class Viagens:
     def __init__(self, destino: str, origem: str, distancia: int, veiculo: Veiculos, motorista: Motoristas):
