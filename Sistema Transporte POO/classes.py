@@ -132,7 +132,6 @@ class Abastecimento:
         codigo_abastecimento += 1
         self.codigo_abastecimento = codigo_abastecimento
 
-
 codigo_manutencao = 0
 
 class Manutencao:
@@ -143,5 +142,3 @@ class Manutencao:
         self.custo = custo
         codigo_manutencao += 1
         self.codigo_manutencao = codigo_manutencao
-    
-
