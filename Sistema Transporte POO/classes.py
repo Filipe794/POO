@@ -1,6 +1,3 @@
-# criar estrutura para armazenar os objetos
-# lista ou dicionario
-
 class Veiculos:
     def __init__(self, marca, modelo, ano, chassi, cor, placa, km):
         self.marca = marca
