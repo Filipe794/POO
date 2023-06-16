@@ -7,7 +7,7 @@ import json
 # manutencao e abastecimento apenas adicionam, pesquisa
 # viagem tem adicionar, pesquisar e editar
 
-# modo de arquivo +a
+# modo de arquivo w
 
 class BaseDAO(ABC):
     @abstractmethod
@@ -19,80 +19,73 @@ class BaseDAO(ABC):
     @abstractmethod
     def delete(): ...
 
-# motoristas = {}
+motoristas = {}
 # veiculos = {}
 # manutencoes = {}
 # abastecimentos = {}
 # viagens = {}
 
-motorista = Motoristas("Filipe", "134134", "134134", "134134")
-
-motorista1 = {
-        "nome": "caua",
-        "CPF": "134134",
-        "RG": "134134",
-        "CNH": "134134"
-       }
-
-motorista2 = {
-        "nome": "bet",
-        "CPF": "134134",
-        "RG": "134134",
-        "CNH": "134134"
-       }
-
+motorista = Motoristas("cainan", "12222", "12222", "12222")
+motorista2 = Motoristas("filipe", "134134", "134134", "134134")
 
 class MotoristasDAO(BaseDAO):
     def add(self,motorista: Motoristas):
+       cpf = motorista.cpf
        motorista = {
         "nome": motorista.nome,
-        "CPF": motorista.cpf,
-        "RG": motorista.rg,
-        "CNH": motorista.cnh
+        "cpf": cpf,
+        "rg": motorista.rg,
+        "cnh": motorista.cnh
        }
-
+       motoristas[cpf] = motorista
+       
        with open("motoristas.json", 'w') as file:
-        json.dump(motorista, file, indent=2)
-        json.dump(motorista1, file, indent=2)
-        json.dump(motorista2, file, indent=2)
-
+        json.dump(motoristas, file, indent=2)
     
-    def pesquisar(self):
-       pass
-    def edit(self):
-       pass
-    def delete(self):
-       pass
+    def pesquisar(self, cpf):
+       with open("motoristas.json") as file:
+          data = json.load(file)
+       motorista = data.get(cpf)
+       if motorista:
+              return motorista
+       else:
+              print('Motorista não encontrado\n')
+
+    def edit(self, motorista: dict):
+      # receber o motorista que foi pesquisado e editar
+      cpf = motorista["cpf"]
+      print(cpf)
+      print('Atualizando dados, deixe os campos vazios para manter os valores ja cadastrados')
+      nome = input('\nDigite o novo nome: ')
+      if nome != '':
+         motorista["nome"] = nome
+         print('Nome atualizado com sucesso\n')
+
+      RG = input('Insira o novo RG: ')
+      if RG != '':
+         motorista["rg"] = RG
+         print('RG atualizado com sucesso\n')
+      
+      CNH = input('Insira a nova CNH: ')
+      if CNH != '':
+         motorista["cnh"] = CNH
+         print('CNH atualizada com sucesso\n')
+
+      motoristas[cpf] = motorista
+      with open("motoristas.json", 'w') as file:
+        json.dump(motoristas, file, indent=2)
+   
+    def delete(self,motorista:dict):
+      cpf = motorista["cpf"]
+      del motoristas[cpf]
+      with open("motoristas.json", 'w') as file:
+        json.dump(motoristas, file, indent=2)
 
 file_motorista = MotoristasDAO()
 file_motorista.add(motorista)
-
-#     def pesquisar(self, cpf: str):
-#         # pesquisar no dicionario pelo cpf e retornar o motorista
-#         motorista = motoristas.get(cpf)
-#         if motorista:
-#             return motorista
-#         else:
-#             print('Motorista não encontrado\n')
-#     def edit(self, motorista: Motoristas):
-#         # receber o motorista que foi pesquisado e editar
-#         print('Atualizando dados, deixe os campos vazios para manter os valores ja cadastrados')
-#         nome = input('\nDigite o novo nome: ')
-#         if nome != '':
-#             motorista["nome"] = nome
-#             print('Nome atualizado com sucesso\n')
-#         RG = input('Insira o novo RG: ')
-#         if RG != '':
-#             motorista["RG"] = RG
-#             print('RG atualizado com sucesso\n')
-#         CNH = input('Insira a nova CNH: ')
-#         if CNH != '':
-#             motorista["CNH"] = CNH
-#             print('CNH atualizada com sucesso\n')
-#     def delete(self,motorista: Motoristas):
-#         # receber um motorista e excluir do dicionario
-#         cpf = motorista["CPF"]
-#         del motoristas[cpf]
+file_motorista.add(motorista2)
+motorista = file_motorista.pesquisar("12222")
+file_motorista.delete(motorista)
 
 # class VeiculosDAO(BaseDAO):
 #     def add(self,veiculo: Veiculos):
