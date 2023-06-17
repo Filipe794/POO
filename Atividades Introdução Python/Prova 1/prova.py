@@ -303,7 +303,7 @@ def editar_viagem(viagem):
               veiculo["km"] -= viagem["distancia"]
               veiculo = pesquisar_veiculo()
               veiculo["km"] += viagem["distancia"]
-              viagem["motorista"] = veiculo
+              viagem["veiculo"] = veiculo
 
 def registrar_abastecimento(codigo_abastecimento):
        print('\nInsira os dados do abastecimento\n')

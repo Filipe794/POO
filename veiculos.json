@@ -1,1 +1,10 @@
-{}
+{
+  "BCC0006": {
+    "marca": "fiat",
+    "modelo": "urso",
+    "ano": 2003,
+    "chassi": "134134",
+    "cor": "azul",
+    "placa": "BCC0006"
+  }
+}

@@ -29,12 +29,13 @@ class Motoristas:
         self.cnh = cnh
 
 class Viagens:
-    def __init__(self, destino: str, origem: str, distancia: int, veiculo: Veiculos, motorista: Motoristas):
+    def __init__(self, destino: str, origem: str, distancia: int, veiculo: Veiculos, motorista: Motoristas, codigo: int):
         self.destino = destino
         self.origem = origem
         self.distancia = distancia
         self.motorista = motorista
         self.veiculo = veiculo
+        self.codigo_viagem = codigo
 
 codigo_abastecimento = 0
 

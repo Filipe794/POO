@@ -1,0 +1,22 @@
+{
+  "0": {
+    "destino": "sao paulo",
+    "origem": "teresina",
+    "distancia": 2000,
+    "motorista": {
+      "nome": "filipe",
+      "cpf": "134134",
+      "rg": "134134",
+      "cnh": "134134"
+    },
+    "veiculo": {
+      "marca": "fiat",
+      "modelo": "urso",
+      "ano": 2003,
+      "chassi": "134134",
+      "cor": "azul",
+      "placa": "BCC0006"
+    },
+    "codigo_viagem": 0
+  }
+}

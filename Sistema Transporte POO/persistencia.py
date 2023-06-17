@@ -161,14 +161,17 @@ dao_veiculo = VeiculosDAO()
 
 class ViagensDAO(Base_DAO_2):
     def add(self, viagem: Viagens):
+        codigo = viagem.codigo_viagem
         viagem = {
             "destino": viagem.destino,
             "origem": viagem.origem,
-            "distancia": viagem.km,
-            "motorista": dao_motorista.pesquisar(viagem.motorista.cpf),
-            "veiculo": dao_veiculo.pesquisar(viagem.veiculo.placa)
+            "distancia": viagem.distancia,
+            "motorista": viagem.motorista,
+            "veiculo": viagem.veiculo,
+            "codigo_viagem": codigo
         }
-        viagens[codigo_viagem] = viagem
+
+        viagens[codigo] = viagem
         with open("viagens.json", 'w') as file:
             json.dump(viagens, file, indent=2)
 
@@ -181,52 +184,66 @@ class ViagensDAO(Base_DAO_2):
         else:
             print('Viagem não encontrada\n')
 
-    def edit(self, destino, origem, distancia, motorista_novo: Motoristas, veiculo_novo: Veiculos):
-        if destino != '':
+    def edit(self,viagem: dict, destino, origem, distancia):
+         cod = viagem["codigo_viagem"]
+         if destino != '':
             self.destino = destino
-        if origem != '':
+         if origem != '':
             self.origem = origem
-        if distancia != '':
+         if distancia != '':
             self.distancia = distancia
-        if origem != '':
-            self.origem = origem
-        if origem != '':
-            self.origem = origem
+         print("Atualizar Motorista?")
+         print("1- Sim")
+         print("2- Não")
+         op = input()
+         if op == 'Sim' or op == "sim" or op == 1:
+            cpf = input("insira o cpf do motorista")
+            motorista = dao_motorista.pesquisar(cpf)
+            viagem["motorista"] = motorista
+       
+         print("Editar Veiculo?")
+         print("1- Sim")
+         print("2- Não")
+         op = input()
+         if op == 'Sim' or op == "sim" or op == 1:
+            placa = input("insira a placa do veiculo")
+            veiculo = dao_veiculo.pesquisar(placa)
+            viagem["veiculo"] = veiculo
+         
+         viagens[cod] = viagem
+         with open("viagens.json", "w") as file:
+            json.dump(viagens, file, indent=2)
 
 
-# class ManuntencaoDAO(BaseDAO):
-#     def add(self,manutencao: Manutencao):
-#         veiculo = manutencao.veiculo
-#         data = manutencao.data
-#         tipo = manutencao.tipo
-#         custo = manutencao.custo
-#         codigo_manutencao = manutencao.codigo_manutencao
-#         manutencao = {
-#         "veiculo": veiculo,
-#         "data": data,
-#         "tipo": tipo,
-#         "custo": custo
-#        }
-#         print(f"O codigo da manutencao é {codigo_manutencao}")
-#         manutencoes[codigo_manutencao] = manutencao
-#     def pesquisar(self, codigo_manutencao: int):
-#         # retornar uma manutencao
-#         manutencao = manutencoes.get(codigo_manutencao)
-#         if manutencao:
-#             return manutencao
-#         else:
-#             print('manutencao não encontrada\n')
-#     def edit(self):
-#         return super().edit()
-#     def delete(self):
-#         return super().delete()
+motorista2 = Motoristas("filipe", "134134", "134134", "134134")
+file_motorista = MotoristasDAO()
+file_motorista.add(motorista2)
+motorista = file_motorista.pesquisar("134134")
+
+veiculo = Veiculos("fiat", "urso",2003, "134134", "azul", "BCC0006")
+file_veiculo = VeiculosDAO()
+file_veiculo.add(veiculo)
+veiculo = file_veiculo.pesquisar("BCC0006")
+
+viagem = Viagens("sao paulo", "teresina", 2000,veiculo,motorista,codigo_viagem)
+codigo_viagem+=1
+dao_viagens = ViagensDAO()
+dao_viagens.add(viagem)
+
+
+class ManuntencaoDAO(Base_DAO_3):
+    def add(self,manutencao: Manutencao):
+        codigo_manutencao = manutencao.codigo_manutencao
+        manutencao = {
+        "veiculo": manutencao.veiculo,
+        "data": manutencao.data,
+        "tipo": manutencao.tipo,
+        "custo": manutencao.custo
+       }
+        print(f"O codigo da manutencao é {codigo_manutencao}")
+        manutencoes[codigo_manutencao] = manutencao
+
 
 # class AbastecimentoDAO(BaseDAO):
 #     def add(self, abastecimento: Abastecimento):
 #         pass
-#     def pesquisar(self):
-#         return super().pesquisar()
-#     def edit(self):
-#         return super().edit()
-#     def delete(self):
-#         return super().delete()
