@@ -37,6 +37,7 @@ class Viagens:
         self.veiculo = veiculo
         self.codigo_viagem = codigo
 
+global codigo_abastecimento
 codigo_abastecimento = 0
 
 class Abastecimento:
@@ -45,9 +46,9 @@ class Abastecimento:
         self.valor = valor
         self.data = data
         self.quantidade = quantidade
-        codigo_abastecimento += 1
         self.codigo_abastecimento = codigo_abastecimento
 
+global codigo_manutencao
 codigo_manutencao = 0
 
 class Manutencao:
@@ -56,5 +57,5 @@ class Manutencao:
         self.data = data
         self.tipo = tipo,
         self.custo = custo
-        codigo_manutencao += 1
         self.codigo_manutencao = codigo_manutencao
+
