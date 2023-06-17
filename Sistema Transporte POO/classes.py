@@ -1,11 +1,12 @@
 class Veiculos:
-    def __init__(self, marca, modelo, ano, chassi, cor, placa, km):
+    def __init__(self, marca, modelo, ano, chassi, cor, placa):
         self.marca = marca
         self.modelo = modelo
         self.ano = ano
         self.chassi = chassi
         self.cor = cor
         self.placa = placa
+        self.km = 0
 
 class Veiculos_pequenos(Veiculos):
     def __init__(self,marca, modelo, ano, chassi, cor, placa, km):
@@ -34,47 +35,6 @@ class Viagens:
         self.distancia = distancia
         self.motorista = motorista
         self.veiculo = veiculo
-        veiculo.atualizar_km(distancia)
-        motorista.atualizar_km(distancia)
-        motorista.qnt_viagens += 1
-
-    def editar_viagem(self,destino,origem,km,motorista_novo: Motoristas, veiculo_novo: Veiculos):
-       if destino != '':
-            self.destino = destino
-       if origem != '':
-            self.origem = origem
-
-       if km != '':
-            self.motorista.total_km -= float(self.distancia)
-            self.veiculo.total_km -= float(self.distancia)
-
-            self.motorista.total_km += float(km)
-            self.veiculo.total_km += float(km)
-
-            self.distancia = float(km)
-
-       
-       print("Editar motorista?")
-       # atualizar km
-       print("Sim")
-       print("Não")
-       op = input()
-       if op == 'Sim' or op == "sim":
-        self.motorista.total_km -= self.distancia
-        self.motorista.qnt_viagens -= 1
-        motorista_novo.total_km += self.distancia
-        motorista_novo.qnt_viagens += 1
-        self.motorista = motorista_novo
-       
-       print("Editar Veiculo?")
-       print("Sim")
-       print("Não")
-       op = input()
-       if op == 'Sim' or op == "sim":
-        self.veiculo.atualizar_km(0,self.distancia)
-        veiculo_novo.atualizar_km(self.distancia)
-        veiculo_novo.atualizar_km(self.distancia)
-        self.veiculo = veiculo_novo
 
 codigo_abastecimento = 0
 
