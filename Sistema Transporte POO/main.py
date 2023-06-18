@@ -12,47 +12,6 @@ dao_viagens = ViagensDAO()
 dao_manutencao = ManuntencaoDAO()
 dao_abastecimento = AbastecimentoDAO()
 
-# lendo os arquivos ja existentes
-try:
-    with open("motoristas.json") as file:
-        data = json.load(file)
-except FileNotFoundError:
-    print("Erro: O arquivo não foi encontrado.")
-finally:
-    file.close()
-
-try:
-    with open("veiculos.json") as file:
-        veiculos = json.load(file)
-except FileNotFoundError:
-    print("Erro: O arquivo não foi encontrado.")
-finally:
-    file.close()
-
-try:
-    with open("manutencoes.json") as file:
-        manutencoes = json.load(file)
-except FileNotFoundError:
-    print("Erro: O arquivo não foi encontrado.")
-finally:
-    file.close()
-
-try:
-    with open("abastecimentos.json") as file:
-        abastecimentos = json.load(file)
-except FileNotFoundError:
-    print("Erro: O arquivo não foi encontrado.")
-finally:
-    file.close()
-
-try:
-    with open("viagens.json") as file:
-        viagens = json.load(file)
-except FileNotFoundError:
-    print("Erro: O arquivo não foi encontrado.")
-finally:
-    file.close()
-
 
 def menu():
     print('\n')
@@ -93,7 +52,7 @@ def submenu_veiculos():
 def submenu_viagem():
     print('\n')
     print('a- Cadastrar Viagem')
-    print('b- Pesquisar Editar Viagem')
+    print('b- Editar Viagem')
     op = input('Escolha uma opcao: ')
     return op
 
@@ -307,14 +266,13 @@ def registrar_manutencao(codigo_manutencao):
         tipo = input('Tipo da manutencao: ')
 
     manutencao = Manutencao(veiculo, data, tipo, custo, codigo_manutencao)
-    print(f"O codigo da manutencao é {codigo_manutencao}")
     return manutencao
 
 
 def qnt_motoristas():
     try:
         with open("motoristas.json") as file:
-            motoristas = json.load("motoristas.json")
+            motoristas = json.load(file)
     except FileNotFoundError:
         print("Erro: O arquivo não foi encontrado.")
     finally:
@@ -325,7 +283,7 @@ def qnt_motoristas():
 def qnt_veiculos():
     try:
         with open("veiculos.json") as file:
-            veiculos = json.load("veiculos.json")
+            veiculos = json.load(file)
     except FileNotFoundError:
         print("Erro: O arquivo não foi encontrado.")
     finally:
@@ -336,43 +294,48 @@ def qnt_veiculos():
 def motorista_mais_viagens():
     try:
         with open("motoristas.json") as file:
-            motoristas = json.load("motoristas.json")
+            motoristas = json.load(file)
             maior = 0
         for motorista in motoristas.values():
             if maior < motorista["qnt_viagens"]:
                 maior = motorista["qnt_viagens"]
                 motorista_maior = motorista
-        print(f'O motorista com mais viagens é o {motorista_maior["nome"]} com {motorista_maior["qnt_viagens"]} viagens\n')
+        print(
+            f'O motorista com mais viagens é o {motorista_maior["nome"]} com {motorista_maior["qnt_viagens"]} viagens\n')
     except FileNotFoundError:
         print("Erro: O arquivo não foi encontrado.")
     finally:
         file.close()
 
+
 def motorista_maior_km():
     try:
         with open("motoristas.json") as file:
-            motoristas = json.load("motoristas.json")
+            motoristas = json.load(file)
         maior = 0
         for motorista in motoristas.values():
             if maior < motorista["total_km"]:
                 maior = motorista["total_km"]
                 motorista_maior = motorista
-        print(f'O motorista com maior quilometragem é o {motorista_maior["nome"]} com {motorista_maior["total_km"]} quilometros\n')
+        print(
+            f'O motorista com maior quilometragem é o {motorista_maior["nome"]} com {motorista_maior["total_km"]} quilometros\n')
     except FileNotFoundError:
         print("Erro: O arquivo não foi encontrado.")
     finally:
         file.close()
 
+
 def veiculo_maior_km():
     try:
         with open("veiculos.json") as file:
-            veiculos = json.load("motoristas.json")
+            veiculos = json.load(file)
         maior = 0
         for veiculo in veiculos.values():
-            if maior < veiculo["km"]:
-                maior = veiculo["km"]
+            if maior < veiculo["total_km"]:
+                maior = veiculo["total_km"]
                 veiculo_maior = veiculo
-        print(f'O veiculo com maior quilometragem é o {veiculo_maior["marca"]} {veiculo_maior["modelo"]} com {veiculo_maior["km"]} quilometros\n')
+        print(
+            f'O veiculo com maior quilometragem é o {veiculo_maior["marca"]} {veiculo_maior["modelo"]} com {veiculo_maior["total_km"]} quilometros\n')
     except FileNotFoundError:
         print("Erro: O arquivo não foi encontrado.")
     finally:
@@ -380,23 +343,66 @@ def veiculo_maior_km():
 
 
 def relatorio():
-    print(f"Quantidade de Motoristas: {qnt_motoristas()}\n")
-    print(f"Quantidade de Veiculos: {qnt_veiculos()}\n")
+    qnt = qnt_motoristas()
+    print(f"Quantidade de Motoristas: {qnt}\n")
+    qnt = qnt_veiculos()
+    print(f"Quantidade de Veiculos: {qnt}\n")
     print("Motorista que mais realizou viagens:")
     motorista_mais_viagens()
     print("Motorista que mais quilometros percorreu:")
     motorista_maior_km()
     print("Veiculo com maior quilometragem:\n")
     veiculo_maior_km()
-    total = abastecimentos["total_gasto"]
-    print(f"Total de despesas com abastecimento: {total}\n")
     total = manutencoes["total_gasto"]
     print(f"Total de despesas com manutençoes: {total}\n")
+    total = abastecimentos["total_gasto"]
+    print(f"Total de despesas com abastecimento: {total}\n")
 
 
 # -------------------------------------------------------------------------------#
 loop = True
 while loop:
+    # lendo os arquivos ja existentes
+    try:
+        with open("motoristas.json") as file:
+            motoristas = json.load(file)
+    except FileNotFoundError:
+        print("Erro: O arquivo não foi encontrado.")
+    finally:
+        file.close()
+
+    try:
+        with open("veiculos.json") as file:
+            veiculos = json.load(file)
+    except FileNotFoundError:
+        print("Erro: O arquivo não foi encontrado.")
+    finally:
+        file.close()
+
+    try:
+        with open("manutencoes.json") as file:
+            manutencoes = json.load(file)
+    except FileNotFoundError:
+        print("Erro: O arquivo não foi encontrado.")
+    finally:
+        file.close()
+
+    try:
+        with open("abastecimentos.json") as file:
+            abastecimentos = json.load(file)
+    except FileNotFoundError:
+        print("Erro: O arquivo não foi encontrado.")
+    finally:
+        file.close()
+
+    try:
+        with open("viagens.json") as file:
+            viagens = json.load(file)
+    except FileNotFoundError:
+        print("Erro: O arquivo não foi encontrado.")
+    finally:
+        file.close()
+    
     op = menu()
     # Gerenciamento de Motoristas
     if op == 1:
@@ -457,8 +463,8 @@ while loop:
                 veiculo = pesquisar_veiculo()
                 if veiculo:
                     km_veiculo(veiculo)
-                else:
-                    print("Não há veiculos cadastrados")
+            else:
+                print("Não há veiculos cadastrados")
     # Gerenciameto de Viagens
     if op == 3:
         if len(veiculos) != 0 and len(motoristas) != 0:

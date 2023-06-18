@@ -4,9 +4,9 @@ import json
 
 motoristas = {}
 veiculos = {}
-manutencoes = {}
+manutencoes = {"total_gasto": 0}
 abastecimentos = {"total_gasto": 0}
-viagens = {"total_gasto": 0}
+viagens = {}
 
 class Base_DAO_1(ABC):
     @abstractmethod
@@ -291,6 +291,7 @@ class ViagensDAO(Base_DAO_2):
 class ManuntencaoDAO(Base_DAO_3):
     def add(self,manutencao: Manutencao):
         codigo_manutencao = manutencao.codigo_manutencao
+        manutencoes["total_gasto"] += manutencao.custo
         manutencao = {
         "veiculo": manutencao.veiculo,
         "data": manutencao.data,
@@ -300,7 +301,7 @@ class ManuntencaoDAO(Base_DAO_3):
        }
         print(f"O codigo da manutencao é {codigo_manutencao}")
         manutencoes[codigo_manutencao] = manutencao
-        manutencoes["total_gasto"] += manutencao.custo
+
         try:
             with open("manutencoes.json", 'w') as file:
                 json.dump(manutencoes, file, indent=2)
@@ -323,6 +324,7 @@ class ManuntencaoDAO(Base_DAO_3):
 class AbastecimentoDAO(Base_DAO_3):
     def add(self, abastecimento: Abastecimento):
         codigo = abastecimento.codigo_abastecimento
+        abastecimentos["total_gasto"] += abastecimento.valor
         abastecimento = {
         "veiculo": abastecimento.veiculo,
         "valor": abastecimento.valor,
@@ -333,7 +335,6 @@ class AbastecimentoDAO(Base_DAO_3):
         
         print(f"O codigo do abastecimento é {codigo}")
         abastecimentos[codigo] = abastecimento
-        abastecimento["total_gasto"] += abastecimento.valor
 
         try:
             with open("abastecimentos.json", 'w') as file:

@@ -54,4 +54,3 @@ class Manutencao:
         self.tipo = tipo,
         self.custo = custo
         self.codigo_manutencao = codigo_manutencao
-
