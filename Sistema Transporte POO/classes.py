@@ -1,12 +1,12 @@
 class Veiculos:
-    def __init__(self, marca, modelo, ano, chassi, cor, placa):
+    def __init__(self, marca, modelo, ano, chassi, cor, placa,km):
         self.marca = marca
         self.modelo = modelo
         self.ano = ano
         self.chassi = chassi
         self.cor = cor
         self.placa = placa
-        self.km = 0
+        self.km = km
 
 class Veiculos_pequenos(Veiculos):
     def __init__(self,marca, modelo, ano, chassi, cor, placa, km):
@@ -27,6 +27,8 @@ class Motoristas:
         self.cpf = cpf
         self.rg = rg
         self.cnh = cnh
+        self.total_km = 0
+        self.qnt_viagens = 0
 
 class Viagens:
     def __init__(self, destino: str, origem: str, distancia: int, veiculo: Veiculos, motorista: Motoristas, codigo: int):
@@ -37,22 +39,16 @@ class Viagens:
         self.veiculo = veiculo
         self.codigo_viagem = codigo
 
-global codigo_abastecimento
-codigo_abastecimento = 0
-
 class Abastecimento:
-    def __init__(self, veiculo: Veiculos, valor, data, quantidade):
+    def __init__(self, veiculo, valor, data, quantidade,codigo_abastecimento):
         self.veiculo = veiculo
         self.valor = valor
         self.data = data
         self.quantidade = quantidade
         self.codigo_abastecimento = codigo_abastecimento
 
-global codigo_manutencao
-codigo_manutencao = 0
-
 class Manutencao:
-    def __init__(self, veiculo: Veiculos, data, tipo, custo):
+    def __init__(self, veiculo, data, tipo, custo,codigo_manutencao):
         self.veiculo = veiculo
         self.data = data
         self.tipo = tipo,

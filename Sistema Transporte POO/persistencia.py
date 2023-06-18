@@ -2,7 +2,11 @@ from abc import ABC, abstractmethod
 from classes import Motoristas, Veiculos, Manutencao, Abastecimento, Viagens
 import json
 
-
+motoristas = {}
+veiculos = {}
+manutencoes = {}
+abastecimentos = {"total_gasto": 0}
+viagens = {"total_gasto": 0}
 
 class Base_DAO_1(ABC):
     @abstractmethod
@@ -14,7 +18,6 @@ class Base_DAO_1(ABC):
     @abstractmethod
     def delete(): ...
 
-
 class Base_DAO_2(ABC):
     @abstractmethod
     def add(): ...
@@ -23,16 +26,9 @@ class Base_DAO_2(ABC):
     @abstractmethod
     def edit(): ...
 
-
 class Base_DAO_3(ABC):
     @abstractmethod
     def add(): ...
-
-motoristas = {}
-veiculos = {}
-manutencoes = {}
-abastecimentos = {}
-viagens = {}
 
 class MotoristasDAO(Base_DAO_1):
     def add(self, motorista: Motoristas):
@@ -41,7 +37,9 @@ class MotoristasDAO(Base_DAO_1):
             "nome": motorista.nome,
             "cpf": cpf,
             "rg": motorista.rg,
-            "cnh": motorista.cnh
+            "cnh": motorista.cnh,
+            "total_km": motorista.total_km,
+            "qnt_viagens": motorista.qnt_viagens
         }
         motoristas[cpf] = motorista
 
@@ -128,7 +126,8 @@ class VeiculosDAO(Base_DAO_1):
             "ano": veiculo.ano,
             "chassi": veiculo.chassi,
             "cor": veiculo.cor,
-            "placa": placa
+            "placa": placa,
+            "total_km": veiculo.km
         }
         veiculos[placa] = veiculo
         try:
@@ -144,14 +143,14 @@ class VeiculosDAO(Base_DAO_1):
             with open("veiculos.json") as file:
                 data = json.load(file)
             veiculo = data.get(placa)
-            if veiculo:
-                return veiculo
-            else:
-                print('Veiculo não encontrado\n')
         except FileNotFoundError:
             print("Erro: O arquivo não foi encontrado.")
         finally:
-            file.close()
+            if veiculo:
+                file.close()
+                return veiculo
+            else:
+                print('Veiculo não encontrado\n')
 
     def edit(self, veiculo: dict):
         placa = veiculo["placa"]
@@ -230,28 +229,36 @@ class ViagensDAO(Base_DAO_2):
             json.dump(viagens, file, indent=2)
 
     def pesquisar(self, codigo_viagem):
-        with open("viagens.json") as file:
-            data = json.load(file)
-        viagem = data.get(codigo_viagem)
-        if viagem:
-            return viagem
-        else:
-            print('Viagem não encontrada\n')
+        try:
+            with open("viagens.json") as file:
+                data = json.load(file)
+            viagem = data.get(codigo_viagem)
+        except FileNotFoundError:
+            print("Erro: O arquivo não foi encontrado.")
+        finally:
+            if viagem:
+                file.close()
+                return viagem
+            else:
+                print('Viagem não encontrada\n')
 
     def edit(self,viagem: dict):
         print('Atualizando dados, deixe os campos vazios para manter os valores ja cadastrados')
+        
         destino = input('\nDigite o destino: ')
         origem = input('Origem: ')
-        distancia = input('Distancia percorrida: ')
+        distancia = float(input('Distancia percorrida: '))
 
         cod = viagem["codigo_viagem"]
+        motorista = viagem["motorista"]
+        veiculo = viagem["veiculo"]
 
         if destino != '':
-            self.destino = destino
+            viagem["destino"] = destino
         if origem != '':
-            self.origem = origem
+            viagem["origem"] = origem
         if distancia != '':
-            self.distancia = distancia
+            viagem["distancia"] = distancia
         
         print("Atualizar Motorista?")
         print("1- Sim")
@@ -281,8 +288,6 @@ class ViagensDAO(Base_DAO_2):
         for chave, valor in data.items():
             print(chave, ":", valor)
 
-dao_viagens = ViagensDAO()
-
 class ManuntencaoDAO(Base_DAO_3):
     def add(self,manutencao: Manutencao):
         codigo_manutencao = manutencao.codigo_manutencao
@@ -290,11 +295,12 @@ class ManuntencaoDAO(Base_DAO_3):
         "veiculo": manutencao.veiculo,
         "data": manutencao.data,
         "tipo": manutencao.tipo,
-        "custo": manutencao.custo
+        "custo": manutencao.custo,
+        "cod": codigo_manutencao
        }
         print(f"O codigo da manutencao é {codigo_manutencao}")
         manutencoes[codigo_manutencao] = manutencao
-
+        manutencoes["total_gasto"] += manutencao.custo
         try:
             with open("manutencoes.json", 'w') as file:
                 json.dump(manutencoes, file, indent=2)
@@ -314,8 +320,6 @@ class ManuntencaoDAO(Base_DAO_3):
         finally:
             file.close()
 
-dao_manutencao = ManuntencaoDAO()
-
 class AbastecimentoDAO(Base_DAO_3):
     def add(self, abastecimento: Abastecimento):
         codigo = abastecimento.codigo_abastecimento
@@ -323,11 +327,14 @@ class AbastecimentoDAO(Base_DAO_3):
         "veiculo": abastecimento.veiculo,
         "valor": abastecimento.valor,
         "data": abastecimento.data,
-        "quantidade": abastecimento.quantidade
+        "quantidade": abastecimento.quantidade,
+        "cod": codigo
        }
         
         print(f"O codigo do abastecimento é {codigo}")
         abastecimentos[codigo] = abastecimento
+        abastecimento["total_gasto"] += abastecimento.valor
+
         try:
             with open("abastecimentos.json", 'w') as file:
                 json.dump(abastecimentos, file, indent=2)
@@ -346,5 +353,3 @@ class AbastecimentoDAO(Base_DAO_3):
             print("Erro: O arquivo não foi encontrado.")
         finally:
             file.close()
-
-dao_abastecimento = AbastecimentoDAO()

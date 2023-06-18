@@ -1,17 +1,1 @@
-{
-  "0": {
-    "veiculo": {
-      "marca": "fiat",
-      "modelo": "urso",
-      "ano": 2003,
-      "chassi": "134134",
-      "cor": "azul",
-      "placa": "BCC0006"
-    },
-    "data": "12/12/12",
-    "tipo": [
-      "rodas"
-    ],
-    "custo": 2000
-  }
-}
+{}
