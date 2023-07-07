@@ -1,6 +1,5 @@
 import json
 
-# String em formato JSON
 data_JSON =  """
 {
 	"size": "Medium",

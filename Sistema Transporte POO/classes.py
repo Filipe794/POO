@@ -51,6 +51,6 @@ class Manutencao:
     def __init__(self, veiculo, data, tipo, custo,codigo_manutencao):
         self.veiculo = veiculo
         self.data = data
-        self.tipo = tipo,
+        self.tipo = tipo
         self.custo = custo
         self.codigo_manutencao = codigo_manutencao

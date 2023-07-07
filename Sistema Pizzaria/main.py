@@ -263,14 +263,14 @@ if (cliente):
                             while num != -1:
                                 match num:
                                     case 1:
-                                        troco = float(
-                                            input("Quanto de troco o entregador deverá levar?"))
+                                        troco = float(input("Quanto de troco o entregador deverá levar?"))
+                                        num = -1
                                     case 2:
-                                        print(
-                                            "nosso entregador levará a maquina de cartoes ")
+                                        print("nosso entregador levará a maquina de cartoes ")
+                                        num = -1
                                     case 3:
-                                        print(
-                                            "nosso entregador levará a maquina de cartoes ")
+                                        print( "nosso entregador levará a maquina de cartoes ")
+                                        num = -1
                                     case 4:
                                         car2.ferramenta.gera_qr()
                                         chave_aleatoria = gerar_chave_pix()
